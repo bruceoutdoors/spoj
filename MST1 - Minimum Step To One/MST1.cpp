@@ -11,11 +11,11 @@ int main()
 	DP[1] = 0;
 
 	for (int i = 2; i < N_MAX; i++) {
-		int minimum =  1 + DP[i - 1];
-		if (i % 3 == 0) minimum = min(minimum, 1 + DP[i/3]);
-		if (i % 2 == 0) minimum = min(minimum, 1 + DP[i/2]);
+		int minimum =  DP[i - 1];
+		if (i % 3 == 0) minimum = min(minimum, DP[i/3]);
+		if (i % 2 == 0) minimum = min(minimum, DP[i/2]);
 
-		DP[i] = minimum;
+		DP[i] = minimum + 1;
 	}
 
 	int T, N; cin >> T;
