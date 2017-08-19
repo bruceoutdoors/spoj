@@ -93,7 +93,7 @@ Answer closestSplitPair(
 	int l = splittedPoints.size();
 	int i_end = l - 1;
 	for (int i = 0; i < i_end; ++i) {
-		int j_end = min(i + 5, l);
+		int j_end = min(i + 6, l); // consider only 5 points after
 		for (int j = i + 1; j < j_end; ++j) {
 			double dist = euclideanDist(*(splittedPoints[i]), *(splittedPoints[j]));
 			if (dist < min_dist.dist) {

@@ -37,7 +37,7 @@ def closest_pair(points, start=None, end=None):
 		
 	if end - start <= 3:
 		return closest_pair_bruteforce(points, start, end)
-	m = (end + start) // 2
+	m = (end + start) >> 1
 	dleft = closest_pair(points, start, m)
 	dright = closest_pair(points, m + 1, end)
 	d = dleft if dleft[0] < dright[0] else dright
@@ -51,7 +51,7 @@ def closest_split_pair(points, start, end, mid, d):
 	min_dist = (float("inf"), -1, -1)
 	l = len(splitted_points)
 	for i in range(0, l - 1):
-		for j in range(i + 1, min(i + 5, l)):
+		for j in range(i + 1, min(i + 6, l)): # consider only 5 points after
 			dist = euclidean_dist(splitted_points[i], splitted_points[j])
 			if dist < min_dist[0]:
 				min_dist = (dist, splitted_points[i], splitted_points[j])
