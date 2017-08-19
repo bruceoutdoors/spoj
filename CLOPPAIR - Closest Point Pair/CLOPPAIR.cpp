@@ -19,7 +19,7 @@ struct Point
 	
 	string toString() 
 	{
-		return "(" + to_string(x) + ", " + to_string(y) + ")";
+		return to_string(idx) +":(" + to_string((int)x) + ", " + to_string((int)y) + ")";
 	}
 };
 
@@ -86,7 +86,7 @@ Answer closestSplitPair(
 	sort(splittedPoints.begin(), splittedPoints.end(), 
 		[](const Point *a, const Point *b) -> bool 
 		{ 
-			return a->y > b->y; 
+			return a->y < b->y; 
 		});
 
 	Answer min_dist = {DOUBLE_MAX, nullptr, nullptr};
@@ -128,7 +128,7 @@ Answer closestPair(vector<Point> &points)
 	sort(points.begin(), points.end(),
 		[](const Point &a, const Point &b) -> bool 
 		{ 
-			return a.x > b.x; 
+			return a.x < b.x; 
 		});
 		
 	return closestPair(points, 0, points.size());
@@ -157,27 +157,20 @@ int main()
 		points.push_back({x, y, idx++});
 	}
 	
-	//~ for (auto p : points) {
-		//~ cout << p.x << " " << p.y << ", ";
-	//~ }
+	//~ for (auto p : points) cout << p.x << " " << p.y << ", ";
 	//~ cout << endl;
 	
-	Answer ans = closestPair(points);
-	
-	//~ // index a must be more than b
-	if (ans.a->idx > ans.b->idx) {
-		swap(ans.a, ans.b);
-	}
-	
 	//~ Answer naiv = closestPairBruteforce(points);
+	//~ if (naiv.a->idx > naiv.b->idx) swap(naiv.a, naiv.b);
 	//~ cout << naiv.a->idx << " " << naiv.b->idx << " "
 		 //~ << setprecision(6) << fixed << naiv.dist << endl;
 	
+	Answer ans = closestPair(points);
+	if (ans.a->idx > ans.b->idx) swap(ans.a, ans.b);
 	cout << ans.a->idx << " " << ans.b->idx << " "
 		 << setprecision(6) << fixed << ans.dist;
 	
 	// STRESS TEST:
-	
 	//~ std::random_device rd;  //Will be used to obtain a seed for the random number engine
     //~ std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
     //~ const long long int r = 100;
